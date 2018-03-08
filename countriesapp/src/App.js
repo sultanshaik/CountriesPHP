@@ -20,7 +20,7 @@ class App extends Component {
   handleSubmit(e){
 	  e.preventDefault();
 	  
-	  {(this.state.countrydata.length)? this.setState({showcomponent:true}):this.setState({errormessage:true})}
+	  {(this.state.countrydata.length)? this.setState({showcomponent:true,errormessage:false}):this.setState({errormessage:true,showcomponent:false})}
 	  
 	  
   }
@@ -41,7 +41,7 @@ class App extends Component {
 	<button className="" onClick = {this.handleSubmit}  >Submit</button>
 	<button className="" onClick = {this.handleReset}>Reset</button>
 	</form>
-	{this.state.showcomponent ? <Countrycomponent data = {this.state.countrydata} />:null}
+	{this.state.showcomponent ? <Countrycomponent countrystring = {this.state.countrydata} />:null}
       </div>
     );
   }
