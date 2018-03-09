@@ -9,9 +9,10 @@ class Countrycomponent extends Component {
 	componentDidMount(){
 		console.log("Enter");
 				fetch("http://localhost:8080/?countrystring="+ this.state.countrystring,{
-			method:'get'
+			method:'get',
+			
 		}).
-		then(response=>response.text()).
+		then(response=>response.json()).
 		then(responseData=>{console.log(responseData)})
 	console.log("Exit");
 
