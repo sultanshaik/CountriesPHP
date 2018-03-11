@@ -5,11 +5,13 @@ import Countrycomponent from './Countrycomponent'
 class App extends Component {
 	constructor(props) {
     super(props);
-    this.state = {countrydata: '',countrystring:'',showcomponent : false,errormessage:false,count:0 };
+    this.state = {countrydata: '',countrystring:'',showcomponent : false,errormessage:false,count:0,noCountryFound:false};
 	this.handleChange = this.handleChange.bind(this);
 	this.handleSubmit = this.handleSubmit.bind(this);
 	this.handleReset = this.handleReset.bind(this);
 	this.countIncrease=this.countIncrease.bind(this);
+	this.notFound=this.notFound.bind(this);
+	this.checkifCountryExistsandDisplay=this.checkifCountryExistsandDisplay.bind(this);
     
 	}
 	
@@ -40,11 +42,32 @@ class App extends Component {
 	   this.setState({showcomponent:false,countrydata:'',errormessage:false});
 	   
 	}
+	
   
+	checkifCountryExistsandDisplay(){
+			
+			fetch("http://localhost:8080/?countrystring="+ this.state.countrystring,{
+			method:'get'	
+		}).
+		then(response=>response.json()).
+		then(response=>{
+				
+			if(this.notFound(response[0])){
+			this.setState({noCountryFound:true});
+			return;
+			}
+			 
+			this.setState({errormessage:false,showcomponent:true,noCountryFound:false})
+			 
+		}
+		)
+		
+	}
+	
 	handleErrorMessage(){
-	  
+		
 	  {(this.state.countrystring.length)?
-	  this.setState({showcomponent:true,errormessage:false}):
+	  this.checkifCountryExistsandDisplay():
 	  this.setState({errormessage:true,showcomponent:false})}
 	  
 	}
@@ -59,6 +82,7 @@ class App extends Component {
 		<p>Enter the country name or related search string</p>
 		<p>{this.state.count}</p>
 		{this.state.errormessage ? <p>The app does not accept empty string</p>: null}
+		{this.state.noCountryFound ? <p>No Country Found</p>:null}
 		<form>
 		<input 	type="text"
 		placeholder="Country name" value = {this.state.countrydata} onChange = {this.handleChange} />
