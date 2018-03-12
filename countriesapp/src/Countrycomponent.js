@@ -75,6 +75,34 @@ class Countrycomponent extends Component {
 	countIncrease(){
 		this.props.countIncrease();
 	}
+	displayNumberOfCountries(){
+		return <div><p>Total number of countries:{this.state.countries.length}</p></div>
+	}
+	
+	displayRegionsandSubregions(){
+		return(
+		<div>
+		<p>Regions with their occurences</p>
+		<ul>
+		{
+			Object.keys(this.state.regionsObject).map(x=>{
+			return (<li>{x}::{this.state.regionsObject[x]}</li>)
+			}
+			)
+		}
+		</ul>
+		<p>Subregions with their occurences</p>
+		<ul>
+		{
+			Object.keys(this.state.subregionsObject).map(x=>{
+			return (<li>{x}::{this.state.subregionsObject[x]}</li>)
+			}
+			)
+		}
+		</ul>
+		</div>
+		)		
+	}
 
   render() {
 	  
@@ -82,7 +110,18 @@ class Countrycomponent extends Component {
 	
       <div className="">
 	  <table>
-	  <thead></thead>
+	  <thead>
+	  <tr>
+					<td>Name</td>
+					<td>AlphaCode2</td>
+					<td>AlphaCode3</td>
+					<td>Region</td>
+					<td>Subregion</td>
+					<td>Population Count</td>
+					<td>Languages</td>
+					<td>Flag</td>
+	  </tr>
+	  </thead>
 		<tbody>
 		{this.state.countries.map((x,i)=>{
 			return(
@@ -93,13 +132,13 @@ class Countrycomponent extends Component {
 					<td>{x.region}</td>
 					<td>{x.subregion}</td>
 					<td>{x.population}</td>
-					<td><ol>
-					{x.languages.map(language=>{
+					<td><ul>
+					{x.languages.map((language,i)=>{
 					return (
-					<li>{language.name}</li>
+					<li key={i}>{language.name}</li>
 					)
 					})}
-					</ol>
+					</ul>
 					</td>
 					<td><img className="flagImage" src = {x.flag}/></td>
 				</tr>
@@ -109,6 +148,9 @@ class Countrycomponent extends Component {
 		}
 		</tbody>
 	   </table>
+	   {this.displayNumberOfCountries()}
+	   {Object.keys(this.state.regionsObject).length !== 0? this.displayRegionsandSubregions():null}
+
       </div>
     );
   }
