@@ -59,6 +59,7 @@ class App extends Component {
 			 
 		}
 		).catch(function(error) {
+			
 			})
 		
 	}
@@ -90,6 +91,7 @@ class App extends Component {
 		<button className="" onClick = {this.handleReset}>Reset</button>
 		</form>
 		{this.state.showcomponent ? <Countrycomponent countrystring = {this.state.countrystring} checkifCountryExistsandDisplay={this.checkifCountryExistsandDisplay} countIncrease={this.countIncrease} regionsCount={this.regionsCount}  count = {this.state.count} />:null}
+		<hr/>
 		<p>Total number of queries:{this.state.count}</p>
 		
 		</div>
