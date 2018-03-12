@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import './App.css';
-import Countrycomponent from './Countrycomponent'
+import Countrycomponent from './Countrycomponent.js'
 
 class App extends Component {
 	constructor(props) {
     super(props);
-    this.state = {countrydata: '',countrystring:'',showcomponent : false,errormessage:false,count:0,noCountryFound:false};
+    this.state = {countrydata: '',countrystring:'',showcomponent : false,errormessage:false,count:0,noCountryFound:false,regions:{}};
 	this.handleChange = this.handleChange.bind(this);
 	this.handleSubmit = this.handleSubmit.bind(this);
 	this.handleReset = this.handleReset.bind(this);
@@ -42,7 +42,6 @@ class App extends Component {
 	   this.setState({showcomponent:false,countrydata:'',errormessage:false});
 	   
 	}
-	
   
 	checkifCountryExistsandDisplay(){
 			
@@ -77,10 +76,11 @@ class App extends Component {
 	}
   
 	render() {
+		
+		
 		return (
 		<div className="">
-		<p>Enter the country name or related search string</p>
-		<p>{this.state.count}</p>
+		<p className="">Enter the country name or related search string</p>
 		{this.state.errormessage ? <p>The app does not accept empty string</p>: null}
 		{this.state.noCountryFound ? <p>No Country Found</p>:null}
 		<form>
@@ -89,7 +89,9 @@ class App extends Component {
 		<button className="" onClick = {this.handleSubmit}  >Submit</button>
 		<button className="" onClick = {this.handleReset}>Reset</button>
 		</form>
-		{this.state.showcomponent ? <Countrycomponent countrystring = {this.state.countrystring} countIncrease={this.countIncrease} count = {this.state.count} />:null}
+		{this.state.showcomponent ? <Countrycomponent countrystring = {this.state.countrystring} countIncrease={this.countIncrease} regionsCount={this.regionsCount}  count = {this.state.count} />:null}
+		<p>Total number of queries:{this.state.count}</p>
+		
 		</div>
     );
   }
