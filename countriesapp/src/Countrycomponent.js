@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import styles from './Countrycomponent.css';
 
 class Countrycomponent extends Component {
 	
