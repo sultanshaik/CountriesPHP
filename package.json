@@ -1,8 +1,0 @@
-{
-  "name": "CountriesPHP",
-  "version": "1.0.0",
-  "main": "index.js",
-  "repository": "https://github.com/sultanshaik/CountriesPHP.git",
-  "author": "Sultan Ahmed",
-  "license": "MIT"
-}
