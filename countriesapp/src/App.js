@@ -44,7 +44,6 @@ class App extends Component {
 	}
   
 	checkifCountryExistsandDisplay(){
-			
 			fetch("http://localhost:8080/?countrystring="+ this.state.countrystring,{
 			method:'get'	
 		}).
@@ -52,14 +51,15 @@ class App extends Component {
 		then(response=>{
 				
 			if(this.notFound(response[0])){
-			this.setState({noCountryFound:true});
+			this.setState({noCountryFound:true,showcomponent:false});
 			return;
 			}
 			 
 			this.setState({errormessage:false,showcomponent:true,noCountryFound:false})
 			 
 		}
-		)
+		).catch(function(error) {
+			})
 		
 	}
 	
@@ -89,7 +89,7 @@ class App extends Component {
 		<button className="" onClick = {this.handleSubmit}  >Submit</button>
 		<button className="" onClick = {this.handleReset}>Reset</button>
 		</form>
-		{this.state.showcomponent ? <Countrycomponent countrystring = {this.state.countrystring} countIncrease={this.countIncrease} regionsCount={this.regionsCount}  count = {this.state.count} />:null}
+		{this.state.showcomponent ? <Countrycomponent countrystring = {this.state.countrystring} checkifCountryExistsandDisplay={this.checkifCountryExistsandDisplay} countIncrease={this.countIncrease} regionsCount={this.regionsCount}  count = {this.state.count} />:null}
 		<p>Total number of queries:{this.state.count}</p>
 		
 		</div>
