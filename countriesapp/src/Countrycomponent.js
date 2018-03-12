@@ -28,18 +28,22 @@ class Countrycomponent extends Component {
 	
 	regionsAndSubregionsCount(regions,subregions){
 		
+		var regionsObject={};
 		regions.map(region=>{
-			this.state.regionsObject[region]=0;
+			regionsObject[region]=0;
 	
 		}
 		);
-		regions.map(region=>this.state.regionsObject[region]=this.state.regionsObject[region]+1);
+		regions.map(region=>regionsObject[region]=regionsObject[region]+1);
+		this.setState({regionsObject:regionsObject});
 		
+		var subregionsObject={};
 		subregions.map(subregion=>{
-			this.state.subregionsObject[subregion]=0;
+			subregionsObject[subregion]=0;
 		}
 		);
-		subregions.map(subregion=>this.state.subregionsObject[subregion]=this.state.subregionsObject[subregion]+1);
+		subregions.map(subregion=>subregionsObject[subregion]=subregionsObject[subregion]+1);
+		this.setState({subregionsObject:subregionsObject});
 	
 	}
 	
@@ -57,7 +61,8 @@ class Countrycomponent extends Component {
 				}
 			)
 			);
-		});
+		}).catch(function(error) {
+			});
 	}
 	componentDidMount(){
 		
@@ -67,6 +72,7 @@ class Countrycomponent extends Component {
 	componentWillReceiveProps(nextProps){
 
 		if(nextProps.countrystring!==this.props.countrystring){
+			this.props.checkifCountryExistsandDisplay();
 			this.fetchCountries(nextProps.countrystring);
 		}
 	}
@@ -75,7 +81,7 @@ class Countrycomponent extends Component {
 		this.props.countIncrease();
 	}
 	displayNumberOfCountries(){
-		return <div><p>Total number of countries:{this.state.countries.length}</p></div>
+		return <div>Total number of countries:{this.state.countries.length}</div>
 	}
 	
 	displayRegionsandSubregions(){
@@ -84,8 +90,8 @@ class Countrycomponent extends Component {
 		<p>Regions with their occurences</p>
 		<ul>
 		{
-			Object.keys(this.state.regionsObject).map(x=>{
-			return (<li>{x}::{this.state.regionsObject[x]}</li>)
+			Object.keys(this.state.regionsObject).map((region,i)=>{
+			return (<li key={i}>{region}::{this.state.regionsObject[region]}</li>)
 			}
 			)
 		}
@@ -93,8 +99,8 @@ class Countrycomponent extends Component {
 		<p>Subregions with their occurences</p>
 		<ul>
 		{
-			Object.keys(this.state.subregionsObject).map(x=>{
-			return (<li>{x}::{this.state.subregionsObject[x]}</li>)
+			Object.keys(this.state.subregionsObject).map((subregion,i)=>{
+			return (<li key={i}>{subregion}::{this.state.subregionsObject[subregion]}</li>)
 			}
 			)
 		}
