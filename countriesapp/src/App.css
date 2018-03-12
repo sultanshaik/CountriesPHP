@@ -27,11 +27,20 @@
 }
 Table{
 	margin-top: 100px;
+	margin-bottom:50px;
 }
 
 td{
 	padding:20px;
+	border:1px solid;
 }
+
+hr{
+	size:2;
+	width:100%;
+	align:left;
+
+	}
 
 .errorMessage{
 	color:red;
