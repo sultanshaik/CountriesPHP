@@ -81,8 +81,8 @@ class App extends Component {
 		return (
 		<div className="">
 		<p className="">Enter the country name or related search string</p>
-		{this.state.errormessage ? <p>The app does not accept empty string</p>: null}
-		{this.state.noCountryFound ? <p>No Country Found</p>:null}
+		{this.state.errormessage ? <p className="errorMessage">The app does not accept empty string</p>: null}
+		{this.state.noCountryFound ? <p className="errorMessage">No Country Found</p>:null}
 		<form>
 		<input 	type="text"
 		placeholder="Country name" value = {this.state.countrydata} onChange = {this.handleChange} />
